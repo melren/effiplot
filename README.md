@@ -1,7 +1,7 @@
 # effiplot
 R package to efficiently and flexibly produce plots for efficacy analysis in clinical trials
 
-**Documentation:** [https://pages.github.com/melren/effiplot/](https://pages.github.com/melren/effiplot/)
+**Documentation:** [https://melren.github.io/effiplot/](https://melren.github.io/effiplot/)
 
 ### About
 
