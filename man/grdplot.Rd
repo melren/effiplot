@@ -5,8 +5,8 @@
 \title{Gradient Plot}
 \usage{
 grdplot(type = "heat", data, x, y, facet = NULL, ord, ncol = 3,
-  subj = "USUBJID", title = "", xlab = "Subjects", ylab = "Study Day",
-  leglab = "", caption = "")
+  subj = "USUBJID", title = "", xlab = "Subjects",
+  ylab = "Study Day", leglab = "", caption = "")
 }
 \arguments{
 \item{type}{controls the type of plot produced}

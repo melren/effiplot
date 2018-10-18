@@ -1,0 +1,32 @@
+template:
+  params:
+    bootswatch: yeti
+
+navbar:
+  right:
+    - icon: fa-github
+      href: https://github.com/melren/effiplot
+    - icon: fa-linkedin
+      href: https://linkedin.com/in/melren
+
+development:
+  mode: auto
+
+reference:
+- title: Primary Plot Functions
+  contents:
+    - tteplot
+    - boxplot
+    - grdplot
+    - longplot
+    - spgtplot
+- title: Utility Functions
+  contents:
+    - round
+    - LOCF
+- title: Bundled Dummy Datasets
+  contents:
+    - ASL
+    - ATE
+    - AZA
+    - BM
