@@ -38,6 +38,8 @@ Function Name | Description
 -------------- | ---------------------------------------------------------------
 `round(x,n)` | Round to nearest, ties away from zero (different from R default to ties to even) 
 `LOCF(x)` | Last Observeration Carried Forward method to fill missing values in data series 
+`WOCF(x)` | Worst Observation Carried Forward method to fill missing values in data series
+`AOCF(x)` | Average Observation Carried Forward method to fill missing numeric values in data series, rounded to 2 decimal places.
 
 #### Bonus Dummy Clinical Datasets
 A few datasets are bundled to provide a source input for the example function calls. The data structure is based upon a diabetic foot ulcer study but is randomly generated and contains no real clinical information.
@@ -50,6 +52,7 @@ AZA | Longitudinal dataset
 BM | Biomarker dataset
 
 ### Issues
-> Currently: No specific known issues
+> **Currently:** No specific known issues<br/>
+**Planned Enhancements:** Update `AOCF()` to return value rounded to same decimal place as input
 
-While argument checks have been added and the functions have all been tested, the amount of stress/unit testing is still far from enough. Additionally, more code testing needs to be conducted on data from other studies. Please feel free to post any issues encountered while using the package.
+While argument checks have been added and the functions have all been tested, the amount of stress/unit testing is still far from enough. Additionally, more code testing needs to be conducted on data from other studies. Please feel free to [report any issues](https://github.com/melren/effiplot/issues) encountered while using the package.

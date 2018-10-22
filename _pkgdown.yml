@@ -24,6 +24,8 @@ reference:
   contents:
     - round
     - LOCF
+    - WOCF
+    - AOCF
 - title: Bundled Dummy Datasets
   contents:
     - ASL
