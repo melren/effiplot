@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: person("Melanie", "Ren", email = "melanie.ren@gmail.com", role = c("aut", "cre"))
 Description: This package bundles some commonly used plot packages to make efficacy plot generation cleaner.
 Depends:
-  R (>= 3.4.4),
+  R (>= 3.4.0),
   survival,
   ggplot2,
   survminer,
