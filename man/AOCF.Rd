@@ -10,12 +10,12 @@ AOCF(x)
 \item{x}{data series/vector with missing values to fill}
 }
 \value{
-returns the same data series with missing values filled in with the average numeric value rounded to 2 decimal places
+returns the same data series with missing values filled in with the average numeric value
 }
 \description{
-This a function to handle missing values in a dataframe column. It fills empty/missing rows values
-with the average numeric value.
+This a function to handle missing values in a numeric dataframe column. It fills empty/missing rows values
+with the average numeric value rounded to the minimum number of decimal places in the input data.
 }
 \examples{
-AOCF(c(1, 2, NA, 5, NA, 9, 10))
+AOCF(c(NA, 2.230, 1.1, 2390.141, NA, 1341.012, 10.24))
 }

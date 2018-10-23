@@ -52,7 +52,6 @@ AZA | Longitudinal dataset
 BM | Biomarker dataset
 
 ### Issues
-> **Currently:** No specific known issues<br/>
-**Planned Enhancements:** Update `AOCF()` to return value rounded to same decimal place as input
+> **Currently:** No specific known issues
 
 While argument checks have been added and the functions have all been tested, the amount of stress/unit testing is still far from enough. Additionally, more code testing needs to be conducted on data from other studies. Please feel free to [report any issues](https://github.com/melren/effiplot/issues) encountered while using the package.

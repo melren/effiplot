@@ -72,24 +72,40 @@ WOCF <- function(x) {
 
 #' Average Observation Carried Forward
 #'
-#' This a function to handle missing values in a dataframe column. It fills empty/missing rows values
-#' with the average numeric value.
+#' This a function to handle missing values in a numeric dataframe column. It fills empty/missing rows values
+#' with the average numeric value rounded to the minimum number of decimal places in the input data.
 #'
 #' @inheritParams LOCF
 #'
-#' @return returns the same data series with missing values filled in with the average numeric value rounded to 2 decimal places
+#' @return returns the same data series with missing values filled in with the average numeric value
 #' @export
 #'
-#' @examples AOCF(c(1, 2, NA, 5, NA, 9, 10))
+#' @examples AOCF(c(NA, 2.230, 1.1, 2390.141, NA, 1341.012, 10.24))
 AOCF <- function(x) {
   # check argument parameter
   checkmate::assertNumeric(x)
   if(!is.null(dim(x)) & !(1 %in% dim(x)))
     stop("Argument 'x' must be single dimension")
   
+  # calculate the minimum decimal places in value set for rounding purposes
+  n_digits = min(sapply(x[!is.na(x)], FUN = numDecimal))
+  
   y=matrix(NA,ncol=1,nrow=length(x))
   for (i in 1: length(x)){
-    y[i,]=round(ifelse(is.na(x[i])==F,x[i],mean(x, na.rm = T)), 2)
+    y[i,]=round(ifelse(is.na(x[i])==F,x[i],mean(x, na.rm = T)), n_digits)
   }
   return(y)
+}
+
+numDecimal <- function(x) {
+  # check argument parameter
+  checkmate::assertNumber(x)
+  
+  result = nchar(strsplit(as.character(x), ".", fixed = TRUE)[[1]][2])
+  
+  if(is.na(result)){
+    return(0)
+  } else {
+    return(result)
+  }
 }
