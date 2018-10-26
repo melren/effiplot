@@ -114,65 +114,70 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>grdplot</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"heat"</span>, <span class='no'>data</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>ord</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>subj</span> <span class='kw'>=</span> <span class='st'>"USUBJID"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Subjects"</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Study Day"</span>, <span class='kw'>leglab</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+    <pre class="usage"><span class='fu'>grdplot</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"heat"</span>, <span class='no'>data</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>ord</span>,
+  <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>subj</span> <span class='kw'>=</span> <span class='st'>"USUBJID"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Subjects"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Study Day"</span>, <span class='kw'>leglab</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>type</th>
-      <td><p>controls the type of plot produced</p></td>
+      <td><p>use either "heat" or "bubble", controls the type of plot produced (string)</p></td>
     </tr>
     <tr>
       <th>data</th>
-      <td><p>a dataframe containing the input data to plot</p></td>
+      <td><p>a dataframe containing the input data to plot (dataframe)</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>column name for x-axis parameter</p></td>
+      <td><p>column name for x-axis parameter (string)</p></td>
     </tr>
     <tr>
       <th>y</th>
-      <td><p>column name for y-axis parameter</p></td>
+      <td><p>column name for y-axis parameter (string)</p></td>
     </tr>
     <tr>
       <th>facet</th>
-      <td><p>optional variable to facet plot by</p></td>
+      <td><p>optional parameter, column name containing a subgrouping factor to facet the plot by (string)</p></td>
     </tr>
     <tr>
       <th>ord</th>
-      <td><p>column name for parameter to order color gradient by</p></td>
+      <td><p>column name for parameter to order color gradient by (string)</p></td>
+    </tr>
+    <tr>
+      <th>reverse</th>
+      <td><p>optional boolean perameter for flipping the size of the bubbles
+and for "negative" measurements like decrease/percent decrease (logic)</p></td>
     </tr>
     <tr>
       <th>ncol</th>
       <td><p>optional parameter to control number of facets to display
-in a row if facet variable is provided, default is 3</p></td>
+in a row if facet variable is provided, must be at least 1, default value is 3 (integer)</p></td>
     </tr>
     <tr>
       <th>subj</th>
-      <td><p>column name for unique subject identifier, default is "USUBJID"</p></td>
+      <td><p>column name for unique subject identifier used to compute counts in legend, default is "USUBJID" (string)</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p>custom plot title, passed as a string</p></td>
+      <td><p>optional parameter, custom plot title (string)</p></td>
     </tr>
     <tr>
       <th>xlab</th>
-      <td><p>custom x-axis plot label, passed as string</p></td>
+      <td><p>optional parameter, custom x-axis plot label (string)</p></td>
     </tr>
     <tr>
       <th>ylab</th>
-      <td><p>custom y-axis plot label, passed as a string</p></td>
+      <td><p>optional parameter, custom y-axis plot label (string)</p></td>
     </tr>
     <tr>
       <th>leglab</th>
-      <td><p>descriptive label for heat map legend</p></td>
+      <td><p>descriptive label for heat map legend (string)</p></td>
     </tr>
     <tr>
       <th>caption</th>
-      <td><p>optional string to include as a caption on bottom of plot</p></td>
+      <td><p>optional string to include as a caption on bottom of plot (string)</p></td>
     </tr>
     </table>
     
@@ -182,7 +187,18 @@ in a row if facet variable is provided, default is 3</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>grdplot</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"bubble"</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>AZA</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"RANK"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"ADY"</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='st'>"CHRT"</span>, <span class='kw'>ord</span> <span class='kw'>=</span> <span class='st'>"PDCR"</span>)</div><div class='img'><img src='grdplot-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>grdplot</span>(
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"bubble"</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>AZA</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"RANK"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"ADY"</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='st'>"CHRTGRP"</span>, <span class='kw'>ord</span> <span class='kw'>=</span> <span class='st'>"PDCR"</span>,
+  <span class='kw'>reverse</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Subject ID"</span>, <span class='kw'>leglab</span> <span class='kw'>=</span> <span class='st'>"% Decrease in UA"</span>
+)</div><div class='img'><img src='grdplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>grdplot</span>(
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"heat"</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>AZA</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"RANK"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"ADY"</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='st'>"CHRTGRP"</span>, <span class='kw'>ord</span> <span class='kw'>=</span> <span class='st'>"PDCR"</span>,
+  <span class='kw'>reverse</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Subject ID"</span>, <span class='kw'>leglab</span> <span class='kw'>=</span> <span class='st'>"% Decrease in UA"</span>
+)</div><div class='img'><img src='grdplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>grdplot</span>(
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"bubble"</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>AZA</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"RANK"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"ADY"</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='st'>"CHRTGRP"</span>, <span class='kw'>ord</span> <span class='kw'>=</span> <span class='st'>"AVAL"</span>,
+  <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Subject ID"</span>, <span class='kw'>leglab</span> <span class='kw'>=</span> <span class='st'>"Ulcer Area"</span>
+)</div><div class='img'><img src='grdplot-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

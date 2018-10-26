@@ -123,47 +123,47 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>a dataframe containing the input data to plot</p></td>
+      <td><p>a dataframe containing the input data to plot (dataframe)</p></td>
     </tr>
     <tr>
       <th>group_by</th>
-      <td><p>a column name containing factors to split the plot by</p></td>
+      <td><p>a column name containing a subgrouping factor to split the plot by (string)</p></td>
     </tr>
     <tr>
       <th>param</th>
-      <td><p>the time-to-event parameter to plot (e.g. "OS")</p></td>
+      <td><p>the time-to-event parameter to plot (e.g. "OS") (string)</p></td>
     </tr>
     <tr>
       <th>paramcd</th>
-      <td><p>the column name containing the parameter, default is "PARAMCD"</p></td>
+      <td><p>the column name containing the parameter, default is "PARAMCD" (string)</p></td>
     </tr>
     <tr>
       <th>aval</th>
-      <td><p>the column name containing the numeric analysis value, default is "AVAL"</p></td>
+      <td><p>the column name containing the numeric analysis value, default is "AVAL" (string)</p></td>
     </tr>
     <tr>
       <th>cnsr</th>
-      <td><p>the column name containing the censor value, default is "CNSR"</p></td>
+      <td><p>the column name containing the censor value, default is "CNSR" (string)</p></td>
     </tr>
     <tr>
       <th>reverse</th>
-      <td><p>boolean value controls whether the survival formula should be flipped, default is FALSE: Surv(CNSR - 1), if set to TRUE then behaves like Surv(1 - CNSR)</p></td>
+      <td><p>boolean value controls whether the survival formula should be flipped, default is FALSE: Surv(CNSR - 1), if set to TRUE then behaves like Surv(1 - CNSR) (logical)</p></td>
     </tr>
     <tr>
       <th>confint</th>
-      <td><p>confidence interval to calculate with, default is 0.8</p></td>
+      <td><p>confidence interval to calculate with, default is 0.8 (float between 0 and 1)</p></td>
     </tr>
     <tr>
       <th>title</th>
-      <td><p>custom plot title, passed as a string</p></td>
+      <td><p>optional parameter, custom plot title (string)</p></td>
     </tr>
     <tr>
       <th>xlab</th>
-      <td><p>custom x-axis plot label, passed as string</p></td>
+      <td><p>optional parameter, custom x-axis plot label (string)</p></td>
     </tr>
     <tr>
       <th>ylab</th>
-      <td><p>custom y-axis plot label, passed as a string</p></td>
+      <td><p>optional parameter, custom y-axis plot label (string)</p></td>
     </tr>
     </table>
     
@@ -173,7 +173,10 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>tteplot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ATE</span>, <span class='kw'>group_by</span> <span class='kw'>=</span> <span class='st'>"CHRT"</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"TFUC"</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='tteplot-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>tteplot</span>(
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ATE</span>, <span class='kw'>group_by</span> <span class='kw'>=</span> <span class='st'>"CHRT"</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='st'>"TFUC"</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Day on Study"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Proportion of Ulcer Closure"</span>
+)</div><div class='img'><img src='tteplot-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Box Plot — boxplot • effiplot</title>
+<title>Line Plot — lineplot • effiplot</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Box Plot — boxplot" />
+<meta property="og:title" content="Line Plot — lineplot" />
 
-<meta property="og:description" content="Generate a flexible box plot for endpoint analysis" />
+<meta property="og:description" content="Generate a flexible longitudinal/spaghetti plot for endpoint analysis with options to facet and add marker lines" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,19 +103,20 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Box Plot</h1>
+    <h1>Line Plot</h1>
     
-    <div class="hidden name"><code>boxplot.Rd</code></div>
+    <div class="hidden name"><code>lineplot.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Generate a flexible box plot for endpoint analysis</p>
+    <p>Generate a flexible longitudinal/spaghetti plot for endpoint analysis with options to facet and add marker lines</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>boxplot</span>(<span class='no'>data</span>, <span class='no'>group_by</span>, <span class='no'>y</span>, <span class='no'>color_by</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subj</span> <span class='kw'>=</span> <span class='st'>"USUBJID"</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Visit Day"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"AVAL"</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+    <pre class="usage"><span class='fu'>lineplot</span>(<span class='no'>data</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>group_by</span> <span class='kw'>=</span> <span class='no'>subj</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>subj</span> <span class='kw'>=</span> <span class='st'>"USUBJID"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Visit Day"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"AVAL"</span>,
+  <span class='kw'>symb</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>markers</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>max_lvl</span> <span class='kw'>=</span> <span class='fl'>8</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -125,20 +126,24 @@
       <td><p>a dataframe containing the input data to plot (dataframe)</p></td>
     </tr>
     <tr>
-      <th>group_by</th>
-      <td><p>x-axis grouping variable (string)</p></td>
+      <th>x</th>
+      <td><p>column name for x-axis parameter (string)</p></td>
     </tr>
     <tr>
       <th>y</th>
       <td><p>column name for y-axis parameter (string)</p></td>
     </tr>
     <tr>
-      <th>color_by</th>
-      <td><p>variable to color by (string)</p></td>
+      <th>group_by</th>
+      <td><p>a column name containing a subgrouping factor to split the plot by (string)</p></td>
     </tr>
     <tr>
       <th>facet</th>
       <td><p>optional parameter, column name containing a subgrouping factor to facet the plot by (string)</p></td>
+    </tr>
+    <tr>
+      <th>stat</th>
+      <td><p>optional parameter, type of summary statistic to compute on y-variable, choose "mean" or "median" if y is not already summary-level data (string)</p></td>
     </tr>
     <tr>
       <th>subj</th>
@@ -157,22 +162,32 @@
       <td><p>optional parameter, custom y-axis plot label (string)</p></td>
     </tr>
     <tr>
+      <th>symb</th>
+      <td><p>optional parameter to shape markers by a factor type column (string)</p></td>
+    </tr>
+    <tr>
+      <th>markers</th>
+      <td><p>optional parameter, list of special interest x-axis values to display vertical dashed marker lines (numeric list/series)</p></td>
+    </tr>
+    <tr>
       <th>caption</th>
       <td><p>optional string to include as a caption on bottom of plot (string)</p></td>
+    </tr>
+    <tr>
+      <th>max_lvl</th>
+      <td><p>optional parameter, maximum levels group_by can have before legend is hidden (integer)</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>produces a box plot with optional facet parameters</p>
+    <p>produces a line plot with study endpoint measurements over time</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>boxplot</span>(
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>AZA</span>, <span class='kw'>group_by</span> <span class='kw'>=</span> <span class='st'>"REGION"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"PDCR"</span>, <span class='kw'>color_by</span> <span class='kw'>=</span> <span class='st'>"BASEUA"</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='st'>"TRT"</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Comparison of Treatment"</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Region"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"% Decrease in Ulcer Area"</span>,
-  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>"Colored by baseline ulcer area"</span>
-)</div><div class='img'><img src='boxplot-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>lineplot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>AZA</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"ADY"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"AVAL"</span>, <span class='kw'>group_by</span> <span class='kw'>=</span> <span class='st'>"USUBJID"</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='st'>"CHRTGRP"</span>,
+  <span class='kw'>symb</span> <span class='kw'>=</span> <span class='st'>"EPOCH"</span>, <span class='kw'>markers</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>45</span>, <span class='fl'>85</span>), <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Ulcer Area"</span>)</div><div class='img'><img src='lineplot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>lineplot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>AZA</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"ADY"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"PDCR"</span>, <span class='kw'>group_by</span> <span class='kw'>=</span> <span class='st'>"CHRT"</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Mean % Decrease in Area"</span>)</div><div class='img'><img src='lineplot-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
