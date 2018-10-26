@@ -9,27 +9,27 @@ tteplot(data, group_by, param, paramcd = "PARAMCD", aval = "AVAL",
   xlab = "", ylab = "")
 }
 \arguments{
-\item{data}{a dataframe containing the input data to plot}
+\item{data}{a dataframe containing the input data to plot (dataframe)}
 
-\item{group_by}{a column name containing factors to split the plot by}
+\item{group_by}{a column name containing a subgrouping factor to split the plot by (string)}
 
-\item{param}{the time-to-event parameter to plot (e.g. "OS")}
+\item{param}{the time-to-event parameter to plot (e.g. "OS") (string)}
 
-\item{paramcd}{the column name containing the parameter, default is "PARAMCD"}
+\item{paramcd}{the column name containing the parameter, default is "PARAMCD" (string)}
 
-\item{aval}{the column name containing the numeric analysis value, default is "AVAL"}
+\item{aval}{the column name containing the numeric analysis value, default is "AVAL" (string)}
 
-\item{cnsr}{the column name containing the censor value, default is "CNSR"}
+\item{cnsr}{the column name containing the censor value, default is "CNSR" (string)}
 
-\item{reverse}{boolean value controls whether the survival formula should be flipped, default is FALSE: Surv(CNSR - 1), if set to TRUE then behaves like Surv(1 - CNSR)}
+\item{reverse}{boolean value controls whether the survival formula should be flipped, default is FALSE: Surv(CNSR - 1), if set to TRUE then behaves like Surv(1 - CNSR) (logical)}
 
-\item{confint}{confidence interval to calculate with, default is 0.8}
+\item{confint}{confidence interval to calculate with, default is 0.8 (float between 0 and 1)}
 
-\item{title}{custom plot title, passed as a string}
+\item{title}{optional parameter, custom plot title (string)}
 
-\item{xlab}{custom x-axis plot label, passed as string}
+\item{xlab}{optional parameter, custom x-axis plot label (string)}
 
-\item{ylab}{custom y-axis plot label, passed as a string}
+\item{ylab}{optional parameter, custom y-axis plot label (string)}
 }
 \value{
 produces a Kaplan-Meier type survival plot
@@ -38,5 +38,8 @@ produces a Kaplan-Meier type survival plot
 Generate a flexible KM plot with a risk table
 }
 \examples{
-tteplot(data = ATE, group_by = "CHRT", param = "TFUC", reverse = TRUE)
+tteplot(
+  data = ATE, group_by = "CHRT", param = "TFUC", reverse = TRUE,
+  xlab = "Day on Study", ylab = "Proportion of Ulcer Closure"
+)
 }

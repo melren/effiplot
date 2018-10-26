@@ -8,25 +8,25 @@ boxplot(data, group_by, y, color_by, facet = NULL, subj = "USUBJID",
   title = "", xlab = "Visit Day", ylab = "AVAL", caption = "")
 }
 \arguments{
-\item{data}{a dataframe containing the input data to plot}
+\item{data}{a dataframe containing the input data to plot (dataframe)}
 
-\item{group_by}{x-axis grouping variable}
+\item{group_by}{x-axis grouping variable (string)}
 
-\item{y}{column name for y-axis parameter}
+\item{y}{column name for y-axis parameter (string)}
 
-\item{color_by}{variable to color by}
+\item{color_by}{variable to color by (string)}
 
-\item{facet}{optional variable to facet plot by}
+\item{facet}{optional parameter, column name containing a subgrouping factor to facet the plot by (string)}
 
-\item{subj}{column name for unique subject identifier, default is "USUBJID"}
+\item{subj}{column name for unique subject identifier used to compute counts in legend, default is "USUBJID" (string)}
 
-\item{title}{custom plot title, passed as a string}
+\item{title}{optional parameter, custom plot title (string)}
 
-\item{xlab}{custom x-axis plot label, passed as string}
+\item{xlab}{optional parameter, custom x-axis plot label (string)}
 
-\item{ylab}{custom y-axis plot label, passed as a string}
+\item{ylab}{optional parameter, custom y-axis plot label (string)}
 
-\item{caption}{optional string to include as a caption on bottom of plot}
+\item{caption}{optional string to include as a caption on bottom of plot (string)}
 }
 \value{
 produces a box plot with optional facet parameters
@@ -35,5 +35,9 @@ produces a box plot with optional facet parameters
 Generate a flexible box plot for endpoint analysis
 }
 \examples{
-boxplot(data = AZA, group_by = "REGION", y = "PDCR", color_by = "BASEUA", facet = "TRT")
+boxplot(
+  data = AZA, group_by = "REGION", y = "PDCR", color_by = "BASEUA", facet = "TRT",
+  title = "Comparison of Treatment", xlab = "Region", ylab = "\% Decrease in Ulcer Area",
+  caption = "Colored by baseline ulcer area"
+)
 }

@@ -2,17 +2,17 @@
 #'
 #' Generate a flexible KM plot with a risk table
 #'
-#' @param data a dataframe containing the input data to plot
-#' @param group_by a column name containing factors to split the plot by
-#' @param param the time-to-event parameter to plot (e.g. "OS")
-#' @param paramcd the column name containing the parameter, default is "PARAMCD"
-#' @param aval the column name containing the numeric analysis value, default is "AVAL"
-#' @param cnsr the column name containing the censor value, default is "CNSR"
-#' @param reverse boolean value controls whether the survival formula should be flipped, default is FALSE: Surv(CNSR - 1), if set to TRUE then behaves like Surv(1 - CNSR)
-#' @param confint confidence interval to calculate with, default is 0.8
-#' @param title custom plot title, passed as a string
-#' @param xlab custom x-axis plot label, passed as string
-#' @param ylab custom y-axis plot label, passed as a string
+#' @param data a dataframe containing the input data to plot (dataframe)
+#' @param group_by a column name containing a subgrouping factor to split the plot by (string)
+#' @param param the time-to-event parameter to plot (e.g. "OS") (string)
+#' @param paramcd the column name containing the parameter, default is "PARAMCD" (string)
+#' @param aval the column name containing the numeric analysis value, default is "AVAL" (string)
+#' @param cnsr the column name containing the censor value, default is "CNSR" (string)
+#' @param reverse boolean value controls whether the survival formula should be flipped, default is FALSE: Surv(CNSR - 1), if set to TRUE then behaves like Surv(1 - CNSR) (logical)
+#' @param confint confidence interval to calculate with, default is 0.8 (float between 0 and 1)
+#' @param title optional parameter, custom plot title (string)
+#' @param xlab optional parameter, custom x-axis plot label (string)
+#' @param ylab optional parameter, custom y-axis plot label (string)
 #'
 #' @return produces a Kaplan-Meier type survival plot
 #' @import ggplot2
@@ -21,7 +21,10 @@
 #' @importFrom stringr str_wrap
 #' @export
 #' @examples
-#' tteplot(data = ATE, group_by = "CHRT", param = "TFUC", reverse = TRUE)
+#' tteplot(
+#'   data = ATE, group_by = "CHRT", param = "TFUC", reverse = TRUE,
+#'   xlab = "Day on Study", ylab = "Proportion of Ulcer Closure"
+#' )
 tteplot <- function(data, group_by, param, paramcd = "PARAMCD", aval = "AVAL", cnsr = "CNSR", reverse = FALSE, confint = 0.8, title = "", xlab = "", ylab = ""){
   # check argument parameters
   checkmate::assertDataFrame(data)
@@ -35,16 +38,16 @@ tteplot <- function(data, group_by, param, paramcd = "PARAMCD", aval = "AVAL", c
   checkmate::assertString(title)
   checkmate::assertString(xlab)
   checkmate::assertString(ylab)
-
+  
   censor = ifelse(reverse, paste0("1 - ", cnsr), paste0(cnsr, " - 1"))
-
+  
   form <- stats::as.formula(paste0("Surv(", aval, ", ", censor, ") ~ ", group_by))
   substitute(survfit(form,
                      data = data[data[[paramcd]]==param,],
                      conf.type = "log-log",
                      conf.int = confint))
   fit<- eval(substitute(survfit(form, data = data[data[[paramcd]]==param,])))
-
+  
   ggsurvplot(
     fit,                     # survfit object with calculated statistics.
     data = data[data[[paramcd]]==param,],

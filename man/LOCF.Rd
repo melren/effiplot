@@ -7,7 +7,7 @@
 LOCF(x)
 }
 \arguments{
-\item{x}{data series/vector with missing values to fill}
+\item{x}{data series/vector with missing values to fill (vector)}
 }
 \value{
 returns the same data series with missing values filled in with the preceding value

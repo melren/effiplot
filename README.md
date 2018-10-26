@@ -26,11 +26,10 @@ devtools::install_github(
 
 Function Name | Description
 -------------- | ---------------------------------------------------------------
+`tteplot(...)` | Generate a flexible KM plot with a risk table
+`lineplot(...)`| Generate a flexible longitudinal or spaghetti plot for endpoint analysis
 `boxplot(...)` | Generate a flexible box plot with optional facets for endpoint analysis
 `grdplot(...)` | Generate a flexible gradient plot (heatmap or bubble plot) for efficacy analysis
-`longplot(...)`| Generate a flexible longitudinal plot for endpoint analysis
-`spgtplot(...)`| Generate a flexible facet spaghetti plot for endpoint analysis
-`tteplot(...)` | Generate a flexible KM plot with a risk table
 
 #### Additional Utility Functions
 

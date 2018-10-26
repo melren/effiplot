@@ -7,9 +7,9 @@
 round(x, n)
 }
 \arguments{
-\item{x}{the number to round}
+\item{x}{the number or vector of numbers to round (numeric)}
 
-\item{n}{the number of decimal places to round}
+\item{n}{the number of decimal places to round (integer)}
 }
 \value{
 returns a rounded version of the value provided

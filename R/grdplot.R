@@ -2,19 +2,34 @@
 #'
 #' Generate a flexible gradient plot (heatmap or bubble plot) for efficacy analysis
 #'
-#' @inheritParams boxplot
-#' @inheritParams longplot
-#' @param type controls the type of plot produced
-#' @param ord column name for parameter to order color gradient by
+#' @inheritParams lineplot
+#' @param type use either "heat" or "bubble", controls the type of plot produced (string)
+#' @param ord column name for parameter to order color gradient by (string)
+#' @param reverse optional boolean perameter for flipping the size of the bubbles
+#' and for "negative" measurements like decrease/percent decrease (logic)
 #' @param ncol optional parameter to control number of facets to display
-#' in a row if facet variable is provided, default is 3
-#' @param leglab descriptive label for heat map legend
+#' in a row if facet variable is provided, must be at least 1, default value is 3 (integer)
+#' @
+#' @param leglab descriptive label for heat map legend (string)
 #' @return produces a gradient plot with optional facet parameters
 #' @export
 #'
 #' @examples
-#' grdplot(type = "bubble", data = AZA, x = "RANK", y = "ADY", facet = "CHRT", ord = "PDCR")
-grdplot <- function(type = "heat", data, x, y, facet = NULL, ord, ncol = 3, subj = "USUBJID", title = "", xlab = "Subjects", ylab = "Study Day", leglab = "",caption = ""){
+#' grdplot(
+#'   type = "bubble", data = AZA, x = "RANK", y = "ADY", facet = "CHRTGRP", ord = "PDCR",
+#'   reverse=TRUE, ncol = 2, xlab = "Subject ID", leglab = "% Decrease in UA"
+#' )
+#'
+#' grdplot(
+#'   type = "heat", data = AZA, x = "RANK", y = "ADY", facet = "CHRTGRP", ord = "PDCR",
+#'   reverse=TRUE, ncol = 2, xlab = "Subject ID", leglab = "% Decrease in UA"
+#' )
+#'
+#' grdplot(
+#'   type = "bubble", data = AZA, x = "RANK", y = "ADY", facet = "CHRTGRP", ord = "AVAL",
+#'   ncol = 2, xlab = "Subject ID", leglab = "Ulcer Area"
+#' )
+grdplot <- function(type = "heat", data, x, y, facet = NULL, ord, reverse = FALSE, ncol = 3, subj = "USUBJID", title = "", xlab = "Subjects", ylab = "Study Day", leglab = "",caption = ""){
   # check argument parameters
   checkmate::assertChoice(type, c("heat", "bubble"))
   checkmate::assertDataFrame(data)
@@ -22,6 +37,7 @@ grdplot <- function(type = "heat", data, x, y, facet = NULL, ord, ncol = 3, subj
   checkmate::assertString(y)
   checkmate::assertString(facet, null.ok = TRUE)
   checkmate::assertString(ord)
+  checkmate::assertLogical(reverse)
   checkmate::assertNumber(ncol, lower = 1, finite = TRUE)
   checkmate::assertString(subj)
   checkmate::assertString(title)
@@ -29,21 +45,29 @@ grdplot <- function(type = "heat", data, x, y, facet = NULL, ord, ncol = 3, subj
   checkmate::assertString(ylab)
   checkmate::assertString(leglab)
   checkmate::assertString(caption)
-
+  
   plotdata <- data
-
+  ord2 <- plotdata[[ord]]
+  
+  glabels = round(seq(min(plotdata[[ord]]), max(plotdata[[ord]]), by= max(plotdata[[ord]])/4),0)
+  gbreaks = glabels
+  if(reverse){
+    glabels = round(seq(max(plotdata[[ord]]), min(plotdata[[ord]]), by= -max(plotdata[[ord]])/4),0)
+    gbreaks = -1*glabels
+  }
+  
   ggplot(plotdata, aes_string(x=x, y=y))+
-    {if(type=="bubble")geom_point(aes_string(size = ord, color = ord))}+
-    {if(type=="bubble")guides(colour = guide_colourbar(order = 2),size = guide_legend(order = 1))}+
-    {if(type=="bubble")scale_color_gradient(low = "red", high = "steelblue")}+
-    {if(type=="heat")geom_tile(aes_string(fill = ord),color = "white")}+
-    {if(type=="heat")scale_fill_gradient(low = "red", high = "steelblue", na.value = "white")}+
-    {if(!is.null(facet))facet_wrap(stats::as.formula(paste("~", facet)), scales = "free_x", ncol=ncol)}+
+  {if(type=="bubble" & reverse)geom_point(aes(size = -ord2, color = ord2))}+
+  {if(type=="bubble" & !reverse)geom_point(aes_string(size = ord, color = ord))}+
+  {if(type=="bubble")guides(colour = guide_colourbar(order = 2, title = ""), size = guide_legend(order = 1))}+
+  {if(type=="bubble")scale_color_gradient(low = "red", high = "steelblue")}+
+  {if(type=="heat")geom_tile(aes_string(fill = ord),color = "white")}+
+  {if(type=="heat")scale_fill_gradient(low = "red", high = "steelblue", na.value = "white")}+
+  {if(!is.null(facet))facet_wrap(stats::as.formula(paste("~", facet)), scales = "free_x", ncol=ncol)}+
     scale_x_discrete(breaks=plotdata[[x]],labels=plotdata[[subj]])+
     scale_y_continuous(trans = "reverse",
                        breaks = unique(plotdata[[y]]))+
-    scale_size_continuous(labels=c(100,75,50,25,0),range = c(0.1, 3)) +
-
+    scale_size_continuous(breaks = gbreaks, labels = glabels, range = c(0.1, 2.5))+
     labs(x = xlab,
          y = ylab,
          title = title,
@@ -68,5 +92,5 @@ grdplot <- function(type = "heat", data, x, y, facet = NULL, ord, ncol = 3, subj
       legend.position = "bottom",
       plot.caption = element_text(size = 8,color = "red")
     )
-
+  
 }

@@ -4,8 +4,8 @@
 #' if the decimal is below 0.5 and up if it is above. Default R round behavior rounds decimals of 0.5 down
 #' when the whole number is even and this function avoids that behavior.
 #'
-#' @param x the number to round
-#' @param n the number of decimal places to round
+#' @param x the number or vector of numbers to round (numeric)
+#' @param n the number of decimal places to round (integer)
 #'
 #' @return returns a rounded version of the value provided
 #' @export
@@ -13,7 +13,7 @@
 #' @examples round(4.5, 0)
 round = function(x, n) {
   # check argument parameters
-  checkmate::assertNumber(x)
+  checkmate::assertNumeric(x)
   checkmate::assertCount(n)
   
   posneg = sign(x)
@@ -29,7 +29,7 @@ round = function(x, n) {
 #' This a function to handle missing values in a dataframe column. It fills empty/missing rows values
 #' with the immediate available previous value.
 #'
-#' @param x data series/vector with missing values to fill
+#' @param x data series/vector with missing values to fill (vector)
 #'
 #' @return returns the same data series with missing values filled in with the preceding value
 #' @export

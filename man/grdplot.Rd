@@ -4,37 +4,40 @@
 \alias{grdplot}
 \title{Gradient Plot}
 \usage{
-grdplot(type = "heat", data, x, y, facet = NULL, ord, ncol = 3,
-  subj = "USUBJID", title = "", xlab = "Subjects",
-  ylab = "Study Day", leglab = "", caption = "")
+grdplot(type = "heat", data, x, y, facet = NULL, ord,
+  reverse = FALSE, ncol = 3, subj = "USUBJID", title = "",
+  xlab = "Subjects", ylab = "Study Day", leglab = "", caption = "")
 }
 \arguments{
-\item{type}{controls the type of plot produced}
+\item{type}{use either "heat" or "bubble", controls the type of plot produced (string)}
 
-\item{data}{a dataframe containing the input data to plot}
+\item{data}{a dataframe containing the input data to plot (dataframe)}
 
-\item{x}{column name for x-axis parameter}
+\item{x}{column name for x-axis parameter (string)}
 
-\item{y}{column name for y-axis parameter}
+\item{y}{column name for y-axis parameter (string)}
 
-\item{facet}{optional variable to facet plot by}
+\item{facet}{optional parameter, column name containing a subgrouping factor to facet the plot by (string)}
 
-\item{ord}{column name for parameter to order color gradient by}
+\item{ord}{column name for parameter to order color gradient by (string)}
+
+\item{reverse}{optional boolean perameter for flipping the size of the bubbles
+and for "negative" measurements like decrease/percent decrease (logic)}
 
 \item{ncol}{optional parameter to control number of facets to display
-in a row if facet variable is provided, default is 3}
+in a row if facet variable is provided, must be at least 1, default value is 3 (integer)}
 
-\item{subj}{column name for unique subject identifier, default is "USUBJID"}
+\item{subj}{column name for unique subject identifier used to compute counts in legend, default is "USUBJID" (string)}
 
-\item{title}{custom plot title, passed as a string}
+\item{title}{optional parameter, custom plot title (string)}
 
-\item{xlab}{custom x-axis plot label, passed as string}
+\item{xlab}{optional parameter, custom x-axis plot label (string)}
 
-\item{ylab}{custom y-axis plot label, passed as a string}
+\item{ylab}{optional parameter, custom y-axis plot label (string)}
 
-\item{leglab}{descriptive label for heat map legend}
+\item{leglab}{descriptive label for heat map legend (string)}
 
-\item{caption}{optional string to include as a caption on bottom of plot}
+\item{caption}{optional string to include as a caption on bottom of plot (string)}
 }
 \value{
 produces a gradient plot with optional facet parameters
@@ -43,5 +46,18 @@ produces a gradient plot with optional facet parameters
 Generate a flexible gradient plot (heatmap or bubble plot) for efficacy analysis
 }
 \examples{
-grdplot(type = "bubble", data = AZA, x = "RANK", y = "ADY", facet = "CHRT", ord = "PDCR")
+grdplot(
+  type = "bubble", data = AZA, x = "RANK", y = "ADY", facet = "CHRTGRP", ord = "PDCR",
+  reverse=TRUE, ncol = 2, xlab = "Subject ID", leglab = "\% Decrease in UA"
+)
+
+grdplot(
+  type = "heat", data = AZA, x = "RANK", y = "ADY", facet = "CHRTGRP", ord = "PDCR",
+  reverse=TRUE, ncol = 2, xlab = "Subject ID", leglab = "\% Decrease in UA"
+)
+
+grdplot(
+  type = "bubble", data = AZA, x = "RANK", y = "ADY", facet = "CHRTGRP", ord = "AVAL",
+  ncol = 2, xlab = "Subject ID", leglab = "Ulcer Area"
+)
 }

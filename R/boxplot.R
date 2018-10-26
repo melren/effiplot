@@ -2,15 +2,18 @@
 #'
 #' Generate a flexible box plot for endpoint analysis
 #'
-#' @inheritParams spgtplot
-#' @param group_by x-axis grouping variable
-#' @param color_by variable to color by
-#' @param facet optional variable to facet plot by
+#' @inheritParams lineplot
+#' @param group_by x-axis grouping variable (string)
+#' @param color_by variable to color by (string)
 #' @return produces a box plot with optional facet parameters
 #' @export
 #'
 #' @examples
-#' boxplot(data = AZA, group_by = "REGION", y = "PDCR", color_by = "BASEUA", facet = "TRT")
+#' boxplot(
+#'   data = AZA, group_by = "REGION", y = "PDCR", color_by = "BASEUA", facet = "TRT",
+#'   title = "Comparison of Treatment", xlab = "Region", ylab = "% Decrease in Ulcer Area",
+#'   caption = "Colored by baseline ulcer area"
+#' )
 boxplot <- function(data, group_by, y, color_by, facet = NULL, subj = "USUBJID", title = "", xlab = "Visit Day", ylab = "AVAL", caption = ""){
   # check argument parameters
   checkmate::assertDataFrame(data)
@@ -23,7 +26,7 @@ boxplot <- function(data, group_by, y, color_by, facet = NULL, subj = "USUBJID",
   checkmate::assertString(xlab)
   checkmate::assertString(ylab)
   checkmate::assertString(caption)
-
+  
   plotdata <- data
   plotdata[[subj]] = factor(as.character(plotdata[[subj]]))
   plotdata[[group_by]] = factor(as.character(plotdata[[group_by]]))
@@ -31,11 +34,11 @@ boxplot <- function(data, group_by, y, color_by, facet = NULL, subj = "USUBJID",
   if(!is.null(facet)){
     plotdata[[facet]] = factor(as.character(plotdata[[facet]]))
   }
-
+  
   glabels <- c(levels(plotdata[[color_by]]))
   gbreaks <- glabels
   gcolors <- hue_pal()(length(gbreaks))
-
+  
   ggplot2::ggplot(data=plotdata,aes_string(x=group_by,y=y))+
     theme_classic()+
     {if(!is.null(facet))facet_wrap(stats::as.formula(paste("~", facet)))}+
@@ -53,7 +56,7 @@ boxplot <- function(data, group_by, y, color_by, facet = NULL, subj = "USUBJID",
           legend.position = "top",
           axis.text = element_text(size=10),
           axis.title = element_text(size=10),
-          plot.caption = element_text(size = 8,color = "red")
+          plot.caption = element_text(size = 9,color = "red")
     )+
     labs(title=title,
          y=ylab,
