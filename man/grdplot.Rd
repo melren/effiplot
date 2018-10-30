@@ -5,8 +5,9 @@
 \title{Gradient Plot}
 \usage{
 grdplot(type = "heat", data, x, y, facet = NULL, ord,
-  reverse = FALSE, ncol = 3, subj = "USUBJID", title = "",
-  xlab = "Subjects", ylab = "Study Day", leglab = "", caption = "")
+  ord_lbl = "USUBJID", reverse = FALSE, ncol = 3, title = "",
+  xlab = "Subjects", ylab = "Study Day", leglab = "", caption = "",
+  size = "small")
 }
 \arguments{
 \item{type}{use either "heat" or "bubble", controls the type of plot produced (string)}
@@ -19,15 +20,15 @@ grdplot(type = "heat", data, x, y, facet = NULL, ord,
 
 \item{facet}{optional parameter, column name containing a subgrouping factor to facet the plot by (string)}
 
-\item{ord}{column name for parameter to order color gradient by (string)}
+\item{ord}{column name for factor level parameter to order color gradient by (string)}
 
-\item{reverse}{optional boolean perameter for flipping the size of the bubbles
+\item{ord_lbl}{column name for parameter that contains x-axis labels (ord column labels) (string)}
+
+\item{reverse}{optional boolean parameter for flipping the size of the bubbles
 and for "negative" measurements like decrease/percent decrease (logic)}
 
 \item{ncol}{optional parameter to control number of facets to display
 in a row if facet variable is provided, must be at least 1, default value is 3 (integer)}
-
-\item{subj}{column name for unique subject identifier used to compute counts in legend, default is "USUBJID" (string)}
 
 \item{title}{optional parameter, custom plot title (string)}
 
@@ -38,6 +39,9 @@ in a row if facet variable is provided, must be at least 1, default value is 3 (
 \item{leglab}{descriptive label for heat map legend (string)}
 
 \item{caption}{optional string to include as a caption on bottom of plot (string)}
+
+\item{size}{optional string to specify font size schema ("small" for PDF usage or "large" for Shiny apps)
+to use for plot, default is "small" (string)}
 }
 \value{
 produces a gradient plot with optional facet parameters

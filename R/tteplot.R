@@ -13,6 +13,9 @@
 #' @param title optional parameter, custom plot title (string)
 #' @param xlab optional parameter, custom x-axis plot label (string)
 #' @param ylab optional parameter, custom y-axis plot label (string)
+#' @param caption optional string to include as a caption on bottom of plot (string)
+#' @param size optional string to specify font size schema ("small" for PDF usage or "large" for Shiny apps)
+#' to use for plot, default is "small" (string)
 #'
 #' @return produces a Kaplan-Meier type survival plot
 #' @import ggplot2
@@ -25,7 +28,7 @@
 #'   data = ATE, group_by = "CHRT", param = "TFUC", reverse = TRUE,
 #'   xlab = "Day on Study", ylab = "Proportion of Ulcer Closure"
 #' )
-tteplot <- function(data, group_by, param, paramcd = "PARAMCD", aval = "AVAL", cnsr = "CNSR", reverse = FALSE, confint = 0.8, title = "", xlab = "", ylab = ""){
+tteplot <- function(data, group_by, param, paramcd = "PARAMCD", aval = "AVAL", cnsr = "CNSR", reverse = FALSE, confint = 0.8, title = "", xlab = "", ylab = "", caption = "", size = "small"){
   # check argument parameters
   checkmate::assertDataFrame(data)
   checkmate::assertString(group_by)
@@ -38,6 +41,11 @@ tteplot <- function(data, group_by, param, paramcd = "PARAMCD", aval = "AVAL", c
   checkmate::assertString(title)
   checkmate::assertString(xlab)
   checkmate::assertString(ylab)
+  checkmate::assertString(caption)
+  checkmate::assertChoice(size, choices = c("small", "large"))
+  
+  # Fetch sizes to use
+  sz <- sizes[sizes[["func"]]=="tteplot", ]
   
   censor = ifelse(reverse, paste0("1 - ", cnsr), paste0(cnsr, " - 1"))
   
@@ -61,21 +69,25 @@ tteplot <- function(data, group_by, param, paramcd = "PARAMCD", aval = "AVAL", c
     break.time.by = 5,       # break X axis in time intervals by 500.
     ########## theme #########,
     ggtheme = theme_classic(),    # theme_light(), # customize plot and risk table with a theme.
-    font.x = 12,
-    font.y = 12,
-    font.tickslab = 9,
+    font.x = sz[sz["elements"]=="axis",][[size]],
+    font.y = sz[sz["elements"]=="axis",][[size]],
+    font.tickslab = sz[sz["elements"]=="text",][[size]],
     ########## legend #########,
     #legend=c(0.1,0.75),
-    legend.labs = stringr::str_wrap(levels(factor(data[[group_by]])), 15),
-    font.legend = c(9,"plain", "black"),
+    legend.labs = stringr::str_wrap(levels(data[[group_by]]), 15),
+    font.legend = c(sz[sz["elements"]=="text",][[size]],"plain", "black"),
     legend.title=" ",
+    font.title = c(sz[sz["elements"]=="title",][[size]], "plain", "black"),
     ########## risk table #########,
     risk.table = TRUE,       # show risk table.
     risk.table.y.text.col = T,# colour risk table text annotations.
     risk.table.y.text = F, #FALSE, # show bars instead of names in text annotations in legend of risk table.
-    risk.table.fontsize=4,
-    risk.table.height = 0.3,
+    risk.table.fontsize=sz[sz["elements"]=="risk",][[size]],
+    risk.table.height = sz[sz["elements"]=="riskh",][[size]],
     ########## plot title ######,
-    title=title
+    title=title,
+    caption = caption,
+    font.caption = c(sz[sz["elements"]=="caption",][[size]], "plain", "red")
   )
 }
+

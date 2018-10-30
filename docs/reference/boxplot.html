@@ -114,8 +114,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>boxplot</span>(<span class='no'>data</span>, <span class='no'>group_by</span>, <span class='no'>y</span>, <span class='no'>color_by</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subj</span> <span class='kw'>=</span> <span class='st'>"USUBJID"</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Visit Day"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"AVAL"</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+    <pre class="usage"><span class='fu'>boxplot</span>(<span class='no'>data</span>, <span class='no'>group_by</span>, <span class='no'>y</span>, <span class='no'>color_by</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Visit Day"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"AVAL"</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='st'>"small"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -126,7 +126,7 @@
     </tr>
     <tr>
       <th>group_by</th>
-      <td><p>x-axis grouping variable (string)</p></td>
+      <td><p>x-axis grouping factor variable (string)</p></td>
     </tr>
     <tr>
       <th>y</th>
@@ -134,15 +134,11 @@
     </tr>
     <tr>
       <th>color_by</th>
-      <td><p>variable to color by (string)</p></td>
+      <td><p>factor variable to color by (string)</p></td>
     </tr>
     <tr>
       <th>facet</th>
       <td><p>optional parameter, column name containing a subgrouping factor to facet the plot by (string)</p></td>
-    </tr>
-    <tr>
-      <th>subj</th>
-      <td><p>column name for unique subject identifier used to compute counts in legend, default is "USUBJID" (string)</p></td>
     </tr>
     <tr>
       <th>title</th>
@@ -160,6 +156,11 @@
       <th>caption</th>
       <td><p>optional string to include as a caption on bottom of plot (string)</p></td>
     </tr>
+    <tr>
+      <th>size</th>
+      <td><p>optional string to specify font size schema ("small" for PDF usage or "large" for Shiny apps)
+to use for plot, default is "small" (string)</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -171,7 +172,7 @@
     <pre class="examples"><div class='input'><span class='fu'>boxplot</span>(
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>AZA</span>, <span class='kw'>group_by</span> <span class='kw'>=</span> <span class='st'>"REGION"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"PDCR"</span>, <span class='kw'>color_by</span> <span class='kw'>=</span> <span class='st'>"BASEUA"</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='st'>"TRT"</span>,
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Comparison of Treatment"</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Region"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"% Decrease in Ulcer Area"</span>,
-  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>"Colored by baseline ulcer area"</span>
+  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>"Colored by baseline ulcer area"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='st'>"large"</span>
 )</div><div class='img'><img src='boxplot-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

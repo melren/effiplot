@@ -5,8 +5,9 @@
 \title{Line Plot}
 \usage{
 lineplot(data, x, y, group_by = subj, facet = NULL, stat = NULL,
-  subj = "USUBJID", title = "", xlab = "Visit Day", ylab = "AVAL",
-  symb = NULL, markers = NULL, caption = "", max_lvl = 8)
+  subj = "USUBJID", log_y = FALSE, title = "", xlab = "Visit Day",
+  ylab = "AVAL", symb = NULL, markers = NULL, caption = "",
+  size = "small", max_lvl = 8)
 }
 \arguments{
 \item{data}{a dataframe containing the input data to plot (dataframe)}
@@ -23,6 +24,8 @@ lineplot(data, x, y, group_by = subj, facet = NULL, stat = NULL,
 
 \item{subj}{column name for unique subject identifier used to compute counts in legend, default is "USUBJID" (string)}
 
+\item{log_y}{optional parameter, boolean for whether to use a log scale for y-axis, default is FALSE (logical)}
+
 \item{title}{optional parameter, custom plot title (string)}
 
 \item{xlab}{optional parameter, custom x-axis plot label (string)}
@@ -35,6 +38,9 @@ lineplot(data, x, y, group_by = subj, facet = NULL, stat = NULL,
 
 \item{caption}{optional string to include as a caption on bottom of plot (string)}
 
+\item{size}{optional string to specify font size schema ("small" for PDF usage or "large" for Shiny apps)
+to use for plot, default is "small" (string)}
+
 \item{max_lvl}{optional parameter, maximum levels group_by can have before legend is hidden (integer)}
 }
 \value{
@@ -46,6 +52,8 @@ Generate a flexible longitudinal/spaghetti plot for endpoint analysis with optio
 \examples{
 lineplot(data = AZA, x = "ADY", y = "AVAL", group_by = "USUBJID", facet = "CHRTGRP",
   symb = "EPOCH", markers = c(45, 85), ylab = "Ulcer Area")
+lineplot(data = AZA, x = "ADY", y = "PDCR", group_by = "USUBJID", facet = "CHRTGRP", log_y = TRUE,
+  symb = "EPOCH", ylab = "Percent Decrease in Ulcer Area")
 lineplot(data = AZA, x = "ADY", y = "PDCR", group_by = "CHRT",
-  stat = "mean", ylab = "Mean \% Decrease in Area")
+  stat = "mean", ylab = "Mean \% Decrease in Area", size = "large")
 }

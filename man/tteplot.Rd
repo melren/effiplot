@@ -6,7 +6,7 @@
 \usage{
 tteplot(data, group_by, param, paramcd = "PARAMCD", aval = "AVAL",
   cnsr = "CNSR", reverse = FALSE, confint = 0.8, title = "",
-  xlab = "", ylab = "")
+  xlab = "", ylab = "", caption = "", size = "small")
 }
 \arguments{
 \item{data}{a dataframe containing the input data to plot (dataframe)}
@@ -30,6 +30,11 @@ tteplot(data, group_by, param, paramcd = "PARAMCD", aval = "AVAL",
 \item{xlab}{optional parameter, custom x-axis plot label (string)}
 
 \item{ylab}{optional parameter, custom y-axis plot label (string)}
+
+\item{caption}{optional string to include as a caption on bottom of plot (string)}
+
+\item{size}{optional string to specify font size schema ("small" for PDF usage or "large" for Shiny apps)
+to use for plot, default is "small" (string)}
 }
 \value{
 produces a Kaplan-Meier type survival plot

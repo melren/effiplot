@@ -116,7 +116,7 @@
 
     <pre class="usage"><span class='fu'>tteplot</span>(<span class='no'>data</span>, <span class='no'>group_by</span>, <span class='no'>param</span>, <span class='kw'>paramcd</span> <span class='kw'>=</span> <span class='st'>"PARAMCD"</span>, <span class='kw'>aval</span> <span class='kw'>=</span> <span class='st'>"AVAL"</span>,
   <span class='kw'>cnsr</span> <span class='kw'>=</span> <span class='st'>"CNSR"</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>confint</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='st'>"small"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,6 +164,15 @@
     <tr>
       <th>ylab</th>
       <td><p>optional parameter, custom y-axis plot label (string)</p></td>
+    </tr>
+    <tr>
+      <th>caption</th>
+      <td><p>optional string to include as a caption on bottom of plot (string)</p></td>
+    </tr>
+    <tr>
+      <th>size</th>
+      <td><p>optional string to specify font size schema ("small" for PDF usage or "large" for Shiny apps)
+to use for plot, default is "small" (string)</p></td>
     </tr>
     </table>
     
