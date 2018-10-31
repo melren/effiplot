@@ -4,10 +4,10 @@
 \alias{lineplot}
 \title{Line Plot}
 \usage{
-lineplot(data, x, y, group_by = subj, facet = NULL, stat = NULL,
-  subj = "USUBJID", log_y = FALSE, title = "", xlab = "Visit Day",
-  ylab = "AVAL", symb = NULL, markers = NULL, caption = "",
-  size = "small", max_lvl = 8)
+lineplot(data, x, y, group_by = aggr, facet = NULL, stat = NULL,
+  aggr = "USUBJID", show_n = TRUE, log_y = FALSE, title = "",
+  xlab = "Visit Day", ylab = "AVAL", symb = NULL, markers = NULL,
+  caption = "", size = "small", max_lvl = 8)
 }
 \arguments{
 \item{data}{a dataframe containing the input data to plot (dataframe)}
@@ -22,7 +22,9 @@ lineplot(data, x, y, group_by = subj, facet = NULL, stat = NULL,
 
 \item{stat}{optional parameter, type of summary statistic to compute on y-variable, choose "mean" or "median" if y is not already summary-level data (string)}
 
-\item{subj}{column name for unique subject identifier used to compute counts in legend, default is "USUBJID" (string)}
+\item{aggr}{column name used to compute aggregate counts (n = ) in legend, default is "USUBJID" (string)}
+
+\item{show_n}{boolean parameter for displaying counts from aggr, default is TRUE (logical)}
 
 \item{log_y}{optional parameter, boolean for whether to use a log scale for y-axis, default is FALSE (logical)}
 

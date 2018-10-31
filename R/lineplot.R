@@ -7,7 +7,8 @@
 #' @param y column name for y-axis parameter (string)
 #' @param facet optional parameter, column name containing a subgrouping factor to facet the plot by (string)
 #' @param stat optional parameter, type of summary statistic to compute on y-variable, choose "mean" or "median" if y is not already summary-level data (string)
-#' @param subj column name for unique subject identifier used to compute counts in legend, default is "USUBJID" (string)
+#' @param aggr column name used to compute aggregate counts (n = ) in legend, default is "USUBJID" (string)
+#' @param show_n boolean parameter for displaying counts from aggr, default is TRUE (logical)
 #' @param log_y optional parameter, boolean for whether to use a log scale for y-axis, default is FALSE (logical)
 #' @param symb optional parameter to shape markers by a factor type column (string)
 #' @param markers optional parameter, list of special interest x-axis values to display vertical dashed marker lines (numeric list/series)
@@ -27,7 +28,7 @@
 #'   symb = "EPOCH", ylab = "Percent Decrease in Ulcer Area")
 #' lineplot(data = AZA, x = "ADY", y = "PDCR", group_by = "CHRT",
 #'   stat = "mean", ylab = "Mean % Decrease in Area", size = "large")
-lineplot <- function(data, x, y, group_by = subj, facet = NULL, stat = NULL, subj = "USUBJID", log_y = FALSE, title = "", xlab = "Visit Day", ylab = "AVAL", symb = NULL, markers = NULL, caption = "", size = "small", max_lvl = 8){
+lineplot <- function(data, x, y, group_by = aggr, facet = NULL, stat = NULL, aggr = "USUBJID", show_n = TRUE, log_y = FALSE, title = "", xlab = "Visit Day", ylab = "AVAL", symb = NULL, markers = NULL, caption = "", size = "small", max_lvl = 8){
   # check argument parameters
   checkmate::assertDataFrame(data)
   checkmate::assertString(x)
@@ -35,7 +36,8 @@ lineplot <- function(data, x, y, group_by = subj, facet = NULL, stat = NULL, sub
   checkmate::assertString(group_by)
   checkmate::assertString(facet, null.ok = TRUE)
   checkmate::assertChoice(stat, choices = c("mean", "median", "min", "max"), null.ok = TRUE)
-  checkmate::assertString(subj)
+  checkmate::assertString(aggr)
+  checkmate::assertLogical(show_n)
   checkmate::assertLogical(log_y)
   checkmate::assertString(title)
   checkmate::assertString(xlab)
@@ -82,10 +84,10 @@ lineplot <- function(data, x, y, group_by = subj, facet = NULL, stat = NULL, sub
     y = "y"
   }
   
-  plotdata[[subj]] = factor(as.character(plotdata[[subj]]))
+  plotdata[[aggr]] = factor(as.character(plotdata[[aggr]]))
   
   npatient <- data %>%
-    dplyr::distinct_(group_by, subj) %>%
+    dplyr::distinct_(group_by, aggr) %>%
     dplyr::group_by_(group_by) %>%
     dplyr::count_(group_by)
   
@@ -100,7 +102,11 @@ lineplot <- function(data, x, y, group_by = subj, facet = NULL, stat = NULL, sub
   
   i = 1
   for(cat in gbreaks){
-    glabels[i] = stringr::str_wrap(paste(cat," (n=", npatient[npatient[[group_by]]==cat,]$n,")",sep=""), lwidth)
+    if(show_n) {
+      glabels[i] = stringr::str_wrap(paste(cat," (n=", npatient[npatient[[group_by]]==cat,]$n,")",sep=""), lwidth)
+    } else {
+      glabels[i] = cat
+    }
     i = i+1
   }
   
@@ -140,4 +146,3 @@ lineplot <- function(data, x, y, group_by = subj, facet = NULL, stat = NULL, sub
          x=xlab,
          caption=caption)
 }
-

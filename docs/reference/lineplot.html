@@ -114,10 +114,10 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>lineplot</span>(<span class='no'>data</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>group_by</span> <span class='kw'>=</span> <span class='no'>subj</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subj</span> <span class='kw'>=</span> <span class='st'>"USUBJID"</span>, <span class='kw'>log_y</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Visit Day"</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"AVAL"</span>, <span class='kw'>symb</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>markers</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>size</span> <span class='kw'>=</span> <span class='st'>"small"</span>, <span class='kw'>max_lvl</span> <span class='kw'>=</span> <span class='fl'>8</span>)</pre>
+    <pre class="usage"><span class='fu'>lineplot</span>(<span class='no'>data</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>group_by</span> <span class='kw'>=</span> <span class='no'>aggr</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>aggr</span> <span class='kw'>=</span> <span class='st'>"USUBJID"</span>, <span class='kw'>show_n</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>log_y</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Visit Day"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"AVAL"</span>, <span class='kw'>symb</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>markers</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='st'>"small"</span>, <span class='kw'>max_lvl</span> <span class='kw'>=</span> <span class='fl'>8</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,8 +147,12 @@
       <td><p>optional parameter, type of summary statistic to compute on y-variable, choose "mean" or "median" if y is not already summary-level data (string)</p></td>
     </tr>
     <tr>
-      <th>subj</th>
-      <td><p>column name for unique subject identifier used to compute counts in legend, default is "USUBJID" (string)</p></td>
+      <th>aggr</th>
+      <td><p>column name used to compute aggregate counts (n = ) in legend, default is "USUBJID" (string)</p></td>
+    </tr>
+    <tr>
+      <th>show_n</th>
+      <td><p>boolean parameter for displaying counts from aggr, default is TRUE (logical)</p></td>
     </tr>
     <tr>
       <th>log_y</th>

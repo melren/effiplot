@@ -114,8 +114,9 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>boxplot</span>(<span class='no'>data</span>, <span class='no'>group_by</span>, <span class='no'>y</span>, <span class='no'>color_by</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Visit Day"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"AVAL"</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='st'>"small"</span>)</pre>
+    <pre class="usage"><span class='fu'>boxplot</span>(<span class='no'>data</span>, <span class='no'>group_by</span>, <span class='no'>y</span>, <span class='no'>color_by</span>, <span class='kw'>color_lbl</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>aggr</span> <span class='kw'>=</span> <span class='st'>"USUBJID"</span>, <span class='kw'>show_n</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Visit Day"</span>,
+  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"AVAL"</span>, <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='st'>"small"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,8 +138,20 @@
       <td><p>factor variable to color by (string)</p></td>
     </tr>
     <tr>
+      <th>color_lbl</th>
+      <td><p>boolean to determine whether or not to display the column name used as color label, default is TRUE (logical)</p></td>
+    </tr>
+    <tr>
       <th>facet</th>
       <td><p>optional parameter, column name containing a subgrouping factor to facet the plot by (string)</p></td>
+    </tr>
+    <tr>
+      <th>aggr</th>
+      <td><p>column name used to compute aggregate counts (n = ) in legend, default is "USUBJID" (string)</p></td>
+    </tr>
+    <tr>
+      <th>show_n</th>
+      <td><p>boolean parameter for displaying counts from aggr, default is TRUE (logical)</p></td>
     </tr>
     <tr>
       <th>title</th>
@@ -171,7 +184,8 @@ to use for plot, default is "small" (string)</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>boxplot</span>(
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>AZA</span>, <span class='kw'>group_by</span> <span class='kw'>=</span> <span class='st'>"REGION"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"PDCR"</span>, <span class='kw'>color_by</span> <span class='kw'>=</span> <span class='st'>"BASEUA"</span>, <span class='kw'>facet</span> <span class='kw'>=</span> <span class='st'>"TRT"</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Comparison of Treatment"</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Region"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"% Decrease in Ulcer Area"</span>,
+  <span class='kw'>show_n</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Comparison of Treatment"</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Region"</span>,
+  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"% Decrease in Ulcer Area"</span>,
   <span class='kw'>caption</span> <span class='kw'>=</span> <span class='st'>"Colored by baseline ulcer area"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='st'>"large"</span>
 )</div><div class='img'><img src='boxplot-1.png' alt='' width='700' height='433' /></div></pre>
   </div>

@@ -4,8 +4,9 @@
 \alias{boxplot}
 \title{Box Plot}
 \usage{
-boxplot(data, group_by, y, color_by, facet = NULL, title = "",
-  xlab = "Visit Day", ylab = "AVAL", caption = "", size = "small")
+boxplot(data, group_by, y, color_by, color_lbl = TRUE, facet = NULL,
+  aggr = "USUBJID", show_n = TRUE, title = "", xlab = "Visit Day",
+  ylab = "AVAL", caption = "", size = "small")
 }
 \arguments{
 \item{data}{a dataframe containing the input data to plot (dataframe)}
@@ -16,7 +17,13 @@ boxplot(data, group_by, y, color_by, facet = NULL, title = "",
 
 \item{color_by}{factor variable to color by (string)}
 
+\item{color_lbl}{boolean to determine whether or not to display the column name used as color label, default is TRUE (logical)}
+
 \item{facet}{optional parameter, column name containing a subgrouping factor to facet the plot by (string)}
+
+\item{aggr}{column name used to compute aggregate counts (n = ) in legend, default is "USUBJID" (string)}
+
+\item{show_n}{boolean parameter for displaying counts from aggr, default is TRUE (logical)}
 
 \item{title}{optional parameter, custom plot title (string)}
 
@@ -38,7 +45,8 @@ Generate a flexible box plot for endpoint analysis
 \examples{
 boxplot(
   data = AZA, group_by = "REGION", y = "PDCR", color_by = "BASEUA", facet = "TRT",
-  title = "Comparison of Treatment", xlab = "Region", ylab = "\% Decrease in Ulcer Area",
+  show_n = FALSE, title = "Comparison of Treatment", xlab = "Region",
+  ylab = "\% Decrease in Ulcer Area",
   caption = "Colored by baseline ulcer area", size = "large"
 )
 }
