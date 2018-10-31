@@ -37,9 +37,9 @@ grdplot <- function(type = "heat", data, x, y, facet = NULL, ord, ord_lbl = "USU
   checkmate::assertString(y)
   checkmate::assertString(facet, null.ok = TRUE)
   checkmate::assertString(ord)
+  checkmate::assertString(ord_lbl)
   checkmate::assertLogical(reverse)
   checkmate::assertNumber(ncol, lower = 1, finite = TRUE)
-  checkmate::assertString(ord_lbl)
   checkmate::assertString(title)
   checkmate::assertString(xlab)
   checkmate::assertString(ylab)
@@ -54,10 +54,10 @@ grdplot <- function(type = "heat", data, x, y, facet = NULL, ord, ord_lbl = "USU
   plotdata <- data %>%
     dplyr::mutate(ord2 = -!!as.name(ord))
   
-  glabels = round(seq(min(plotdata[[ord]]), max(plotdata[[ord]]), by= max(plotdata[[ord]])/4),0)
+  glabels = round(seq(min(plotdata[[ord]], na.rm = TRUE), max(plotdata[[ord]], na.rm = TRUE), by= max(plotdata[[ord]], na.rm = TRUE)/4),0)
   gbreaks = glabels
   if(reverse){
-    glabels = round(seq(max(plotdata[[ord]]), min(plotdata[[ord]]), by= -max(plotdata[[ord]])/4),0)
+    glabels = round(seq(max(plotdata[[ord]], na.rm = TRUE), min(plotdata[[ord]], na.rm = TRUE), by= -max(plotdata[[ord]], na.rm = TRUE)/4),0)
     gbreaks = -1*glabels
   }
   

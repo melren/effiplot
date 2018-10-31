@@ -43,7 +43,7 @@ lineplot <- function(data, x, y, group_by = subj, facet = NULL, stat = NULL, sub
   checkmate::assertString(symb, null.ok = TRUE)
   checkmate::assertNumeric(markers, null.ok = TRUE)
   checkmate::assertString(caption)
-  checkmate::assertNumber(max_lvl)
+  checkmate::assertNumber(max_lvl, lower = 1, finite = TRUE)
   checkmate::assertChoice(size, choices = c("small", "large"))
   
   # Transform data to avoid log(0) values
@@ -59,7 +59,7 @@ lineplot <- function(data, x, y, group_by = subj, facet = NULL, stat = NULL, sub
   sz <- sizes[sizes[["func"]]=="lineplot", ]
   
   if(!is.null(stat)){
-    exprs=paste0(stat,"(",y,")")
+    exprs=paste0(stat,"(",y,", na.rm = TRUE)")
     
     if(is.null(facet)){
       statdata <- data %>%
@@ -133,10 +133,11 @@ lineplot <- function(data, x, y, group_by = subj, facet = NULL, stat = NULL, sub
           plot.caption = element_text(size = sz[sz["elements"]=="caption",][[size]],color = "red")
     )+
     {if(!is.null(markers))geom_vline(xintercept=markers,color="black",linetype=2)}+
-    scale_x_continuous(breaks=seq(min(plotdata[[x]]),max(plotdata[[x]]), 7)) +
+    scale_x_continuous(breaks=seq(min(plotdata[[x]], na.rm = TRUE),max(plotdata[[x]], na.rm = TRUE), 7)) +
     {if(log_y)scale_y_log10(breaks = c(0.1, 1, 10, 100, 1000, 10000, 100000, 1000000))}+
     labs(title=title,
          y=ylab,
          x=xlab,
          caption=caption)
 }
+
