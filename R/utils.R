@@ -109,3 +109,31 @@ numDecimal <- function(x) {
     return(result)
   }
 }
+
+#' String to File Name
+#'
+#' This function parses a string to a format easier to use in filenames by removing spaces and replacing
+#' with a symbol like "-" and converting all letters to lowercase and removing special symbols.
+#'
+#' @param s string parameter to convert to (string)
+#' @param sep optional parameter, symbol to separate words by, default is "-" (string)
+#'
+#' @return returns a parsed string formatted better for filenames
+#' @export
+#'
+#' @examples
+#' strToFileName(s = "This is an example FiLeNme with# (symbols >=4) to remove")
+strToFileName <- function(s, sep = "-") {
+  # check argument parameter
+  checkmate::assertString(s)
+  checkmate::assertString(sep)
+  
+  text <- tolower(s)
+  text <- gsub("-", "to", text)
+  text <- gsub("<", "L", text)
+  text <- gsub(">", "G", text)
+  text <- gsub("=", "E", text)
+  text <- gsub("[[:punct:]]", "", text)
+  text <- gsub(" ", sep, text)
+  return(text)
+}

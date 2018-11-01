@@ -34,11 +34,12 @@ Function Name | Description
 #### Additional Utility Functions
 
 Function Name | Description
--------------- | ---------------------------------------------------------------
+------------------------ | ---------------------------------------------------------------
 `round(x,n)` | Round to nearest, ties away from zero (different from R default to ties to even) 
 `LOCF(x)` | Last Observeration Carried Forward method to fill missing values in data series 
 `WOCF(x)` | Worst Observation Carried Forward method to fill missing values in data series
 `AOCF(x)` | Average Observation Carried Forward method to fill missing numeric values in data series, rounded to 2 decimal places.
+`strToFileName(s,sep)` | String to File Name, parses string to make it more filename friendly 
 
 #### Bonus Dummy Clinical Datasets
 A few datasets are bundled to provide a source input for the example function calls. The data structure is based upon a diabetic foot ulcer study but is randomly generated and contains no real clinical information.
