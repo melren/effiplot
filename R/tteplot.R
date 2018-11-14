@@ -50,11 +50,8 @@ tteplot <- function(data, group_by, param, paramcd = "PARAMCD", aval = "AVAL", c
   censor = ifelse(reverse, paste0("1 - ", cnsr), paste0(cnsr, " - 1"))
   
   form <- stats::as.formula(paste0("Surv(", aval, ", ", censor, ") ~ ", group_by))
-  substitute(survfit(form,
-                     data = data[data[[paramcd]]==param,],
-                     conf.type = "log-log",
-                     conf.int = confint))
-  fit<- eval(substitute(survfit(form, data = data[data[[paramcd]]==param,])))
+  
+  fit <- do.call(survfit, args = list(formula = form, data = data[data[[paramcd]]==param,], conf.type = "log-log", conf.int = confint))
   
   ggsurvplot(
     fit,                     # survfit object with calculated statistics.
@@ -62,7 +59,6 @@ tteplot <- function(data, group_by, param, paramcd = "PARAMCD", aval = "AVAL", c
     fun="event",
     censor=TRUE,
     censor.shape="+",
-    #xlim=c(0,135),  #xlim = c(0,fit$maxtime+1),
     ylim = c(0,1),
     xlab = xlab,    # customize X axis label.
     ylab = ylab,
